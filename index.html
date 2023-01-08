@@ -1,9 +1,117 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            body {
+                padding: 0;
+                box-sizing: border-box;
+                margin: 0;
+            }
+            .container {
+                position: relative;
+                max-width: 400px;
+                width: 100%;
+                padding: 15px;
+                margin: 10px auto;
+
+            }
+            .select {
+                width: 100%;
+                height: 40px;
+            }
+            .para {
+                margin-bottom: 0;
+            }
+            #buffer {
+                width: 100%;
+                position: relative;
+                height: 100px;
+                background: lightgrey;
+            }
+        </style>
+       
+    </head>
 <body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+    <div class="container">
+        <h1>How well do you know your friends</h1>
+        <p>Match the friend to the correct fact to unlock the next clue at the bottom of the page.</p>
+        <p>There are 13 friends total: Sarah Elizabeth, Parker Moore,	Lara Perryman,	Neil Roxburgh,	Mark Earley,	Emily Smith,	James Finn,	Padraig McMorrow,	Sara cargill,	Paul Dante,	Robbie Brennan,	Megan mccann,	Vivian Wong,	Laura Barreca,	Eduardo van der Kloot,	Darragh Bourke</p>
 
+        <hr>
+
+        <div id="page"></div>
+        <h2 id="status">Wrong XXX</h2>
+        <div id="buffer"></div>
+    </div>
+
+    <script>
+        const friends = [
+            {val: 0, text:''}, {val: 1, text: 'Sarah Elizabeth'}, {val: 2, text: 'Parker Moore'}, {val:3, text: 'Lara Perryman'}, {val:4, text:'Neil Roxburgh'}, {val: 5, text:'Mark Earley'},{val: 6, text:'Emily Smith'}, {val: 7, text:'James Finn'}, {val: 8, text:'Padraig McMorrow'},	{val: 9, text:'Sara Cargill'}, {val: 10, text:'Paul Dante'},{val: 11, text:'Robbie Brennan'},{val: 12, text:'Megan McCann'},{val:13, text: 'Vivian Wong'},{val: 14, text:'Laura Barreca'},{val: 15, text:'Eduardo van der Kloot'},{val: 16, text:'Darragh Bourke'}
+        ];
+
+        const questions = [
+            'Lives in Perth', 
+            'Software developer with green eyes', 
+            'Irish person with the biggest jump', 
+            'Teacher that has bees', 
+            'Born in Asia', 
+            'Oldest friend that has a cat', 
+            'Lady that leant you your first bike in Canada', 
+            'Environmental scientist', 
+            'Non European person, currently, with the most kids', 
+            'Shortest American', 
+            'Person who almost killed your dad on the pitch and putt course', 
+            'Tallest Australian friend', 
+            'Youngest person with brown/hazel eyes', 
+            'Part of the team', 
+            'Only person that lives in Europe'
+        ];
+
+        //const answers = [9,	6,	12,	4,	7,	2,	15,	1,	11,	3,	8,	5,	10,	13,	14];
+        const answers = [9, 7, 11, 5, 13, 3, 6, 12, 1, 14, 10, 4, 15, 16, 8]
+
+        const createPage = () => {
+            const page = document.getElementById('page');
+
+            for (let q of questions) {
+                let divHTML = document.createElement('div');
+                let pHTML = document.createElement('p');
+                pHTML.className = 'para';
+                pHTML.innerText = q;
+
+                let sHTML = document.createElement('select');
+                sHTML.className = 'select';
+                sHTML.setAttribute("placeholder", "Select friend");
+
+                for (let i=0; i<friends.length; i+=1) {
+                    let opt = document.createElement('option');
+                    opt.value=friends[i].val;
+                    opt.innerHTML = friends[i].text;
+                    sHTML.appendChild(opt)
+                }
+
+                sHTML.addEventListener("change", function () {
+                    checkWin();
+                });
+                divHTML.appendChild(pHTML)
+                divHTML.appendChild(sHTML)
+                page.appendChild(divHTML)
+            }
+        }
+
+        createPage();
+
+        const checkWin = () => {
+            const selects = [...document.getElementsByClassName('select')];
+            const userAnswers = selects.map((s) => parseInt(s.value));
+            if (userAnswers.join('') !== answers.join('')) {
+                //alert('You win');
+                document.getElementById('status').innerHTML = `<a href='./map'>You win. Click for next clue</a>`;
+            }
+            console.log(userAnswers)
+        }
+
+    </script>
 </body>
 </html>
