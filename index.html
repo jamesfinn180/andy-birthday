@@ -122,9 +122,9 @@
         const checkWin = () => {
             const selects = [...document.getElementsByClassName('select')];
             const userAnswers = selects.map((s) => parseInt(s.value));
-            if (userAnswers.join('') !== answers.join('')) {
-                alert('You win');
-                document.getElementById('status').innerHTML = `<a href='./map'>Correct. Click for next clue</a>`;
+            if (userAnswers.join('') === answers.join('')) {
+                alert('You win. Check out the clue below.');
+                document.getElementById('status').innerHTML = `<a href='./map.html'>Correct. Click for next clue</a>`;
             }
         }
 
