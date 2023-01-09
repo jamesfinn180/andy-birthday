@@ -85,7 +85,7 @@
             'Tallest Australian friend', 
             'Youngest person with brown/hazel eyes', 
             'Part of the team', 
-            'Only person that lives in Europe'
+            'Youngest person that lives in Europe'
         ];
         const answers = [9, 7, 11, 5, 13, 3, 6, 12, 1, 14, 10, 4, 15, 16, 8]
 
@@ -123,7 +123,7 @@
             const selects = [...document.getElementsByClassName('select')];
             const userAnswers = selects.map((s) => parseInt(s.value));
             if (userAnswers.join('') === answers.join('')) {
-                alert('You win. Check out the clue below.');
+                alert('You know your friends. Check out the clue below.');
                 document.getElementById('status').innerHTML = `<a href='./map.html'>Correct. Click for next clue</a>`;
             }
         }
